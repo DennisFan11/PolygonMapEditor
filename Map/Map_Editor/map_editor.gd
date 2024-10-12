@@ -8,7 +8,7 @@ func _ready():
 func _process(delta):
 	var vec = Input.get_vector("a", "d", "w", "s")
 	%Camera.offset += vec * 1000.0 * delta
-	$CanvasGroup/ChunkLoad.player_pos = %Camera.offset
+	$ChunkLoad.player_pos = %Camera.offset
 	%BlockGrid.position = %Camera.offset - get_viewport_rect().size
 
 func _unhandled_input(event):

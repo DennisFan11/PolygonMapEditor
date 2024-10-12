@@ -12,7 +12,6 @@ unique_name_in_owner = true
 
 [node name="TestLine" type="Line2D" parent="StaticBody2D"]
 unique_name_in_owner = true
-visible = false
 closed = true
 width = 5.0
 default_color = Color(0.458824, 1, 0.462745, 0.843137)

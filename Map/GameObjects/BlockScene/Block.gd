@@ -10,7 +10,7 @@ func _new_block(_id:int, _position:Vector2, _polygon:PackedVector2Array)->void:
 	### INFO 建立新的實例並加到場景樹
 	var node:Destructible = Scene.instantiate()
 	node.Init(_id, _position, _polygon)
-	get_parent().add_child(node)
+	ChunkLoader.Terrain_node.add_child(node)
 #endregion
 
 

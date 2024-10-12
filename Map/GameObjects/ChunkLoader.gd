@@ -7,14 +7,29 @@ var _map:MapData
 static var BlockSize:Vector2
 static var MapSize:Vector2
 static var instance:ChunkLoader
+
+static var Terrain_node:CanvasGroup
 static var Object_node:Node2D
+func _node_init():
+	Terrain_node = CanvasGroup.new()
+	Object_node = Node2D.new()
+	add_child(Terrain_node)
+	add_child(Object_node)
+	instance = self
+	
+	
+	
+
+
 func Load(str:String):
 	_map = ResourceLoader.load("res://Map/Pregen_maps/"+str+".tres", "MapData")
 	_map_loaded = true
 	BlockSize = _map.BlockSize
 	MapSize = _map.Map_size
-	instance = self
 	Destructible.BlockSize = BlockSize
+	
+	_node_init()
+	
 func SetPosition(new_position:Vector2)->void: # 需要每偵調用
 	_chunk_update(new_position)
 
@@ -75,7 +90,7 @@ func _load_chunk(map_pos:Vector2i)-> void: # NOTE 從_map中讀取資料並建�
 	for i in data_array:
 		var node:Destructible = _block_scene.instantiate()
 		node.Init(i[0], i[1], i[2]) # 包含將引用寫入_loaded_chunk
-		add_child(node)
+		Terrain_node.add_child(node)
 	### ================== NOTE 通用物件層 ==================
 	if !_map.objs.has(map_pos):
 		_map.objs[map_pos] = [] 

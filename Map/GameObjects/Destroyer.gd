@@ -52,7 +52,7 @@ func _merge(bodies:Array[Node2D] , global_polygon:PackedVector2Array, id:int, gl
 		marge_node = _block_scene.instantiate()
 		marge_node.Init(id, snapped(global_pos, Vector2(ChunkLoader.BlockSize)),
 			_polygon_to_local(global_polygon, snapped(global_pos, Vector2(ChunkLoader.BlockSize))))
-		ChunkLoader.instance.add_child(marge_node)
+		ChunkLoader.Terrain_node.add_child(marge_node)
 		marge_node.Merge(PackedVector2Array()) ### NOTE 手動觸發自分裂
 		
 	for i in bodies:

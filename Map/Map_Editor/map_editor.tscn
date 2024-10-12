@@ -105,13 +105,11 @@ offset_right = 2304.0
 offset_bottom = 1296.0
 mouse_filter = 2
 
-[node name="CanvasGroup" type="CanvasGroup" parent="."]
-material = SubResource("ShaderMaterial_mipxb")
-
-[node name="ChunkLoad" type="Node2D" parent="CanvasGroup"]
+[node name="ChunkLoad" type="Node2D" parent="."]
 script = ExtResource("1_5gdwe")
 
-[node name="ObjectNode" type="Node2D" parent="."]
+[node name="CanvasGroup" type="CanvasGroup" parent="."]
+material = SubResource("ShaderMaterial_mipxb")
 
 [node name="Camera" type="Camera2D" parent="."]
 unique_name_in_owner = true

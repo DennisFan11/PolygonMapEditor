@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://dryfcqwh6t7ei"]
+
+[ext_resource type="Script" path="res://Unit/Weapon/Blade/blade.gd" id="1_bxco3"]
+[ext_resource type="Texture2D" uid="uid://5cg2h74llk2k" path="res://icon.svg" id="1_o8knu"]
+[ext_resource type="Shader" uid="uid://5fncabswl6dw" path="res://Unit/Weapon/Blade/fire.tres" id="2_5ikhv"]
+
+[sub_resource type="Curve2D" id="Curve2D_vtry5"]
+_data = {
+"points": PackedVector2Array(-49.3521, 0.148651, 49.3521, -0.148651, 0, -32, 0, 0, 0, 0, 64, 0, 58.2711, -0.148651, -58.2711, 0.148651, 0, 32)
+}
+point_count = 3
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w0u0q"]
+shader = ExtResource("2_5ikhv")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ajkcy"]
+size = Vector2(74, 32)
+
+[node name="Blade" type="Node2D"]
+script = ExtResource("1_bxco3")
+
+[node name="Path2D" type="Path2D" parent="."]
+position = Vector2(-40, 0)
+scale = Vector2(1.625, 1)
+curve = SubResource("Curve2D_vtry5")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(0, -32)
+rotation = -0.00301204
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="Icon" type="Sprite2D" parent="Area2D"]
+scale = Vector2(0.5, 0.25)
+texture = ExtResource("1_o8knu")
+
+[node name="ColorRect" type="ColorRect" parent="Area2D"]
+material = SubResource("ShaderMaterial_w0u0q")
+offset_left = -40.0
+offset_top = 16.0
+offset_right = -8.0
+offset_bottom = 96.0
+rotation = -1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_ajkcy")

@@ -15,3 +15,7 @@ script = ExtResource("2_mttn3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
 shape = SubResource("CapsuleShape2D_04qvo")
+
+[node name="Marker2D" type="Marker2D" parent="CharacterBody2D"]
+
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
