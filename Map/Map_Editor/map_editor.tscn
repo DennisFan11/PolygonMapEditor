@@ -1,0 +1,118 @@
+[gd_scene load_steps=13 format=3 uid="uid://ca4cgvh5n84ew"]
+
+[ext_resource type="Script" path="res://Map/Map_Editor/chunk_load.gd" id="1_5gdwe"]
+[ext_resource type="Script" path="res://Map/Map_Editor/map_editor.gd" id="1_681ir"]
+[ext_resource type="PackedScene" uid="uid://bf6vpy7qaysi6" path="res://Map/Map_Editor/UI/terrain_editor_ui.tscn" id="3_swh0k"]
+[ext_resource type="Texture2D" uid="uid://5cg2h74llk2k" path="res://icon.svg" id="3_v3ltf"]
+[ext_resource type="Shader" path="res://Map/Map_Editor/ScreenShader.gdshader" id="4_mk2ej"]
+[ext_resource type="Shader" path="res://Map/GameObjects/shader/TerrainShader.gdshader" id="5_abpmc"]
+[ext_resource type="Shader" path="res://Map/Map_Editor/BlockGrid.gdshader" id="7_1mb4a"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a4nsu"]
+shader = ExtResource("4_mk2ej")
+shader_parameter/overlay = false
+shader_parameter/scanlines_opacity = 0.4
+shader_parameter/scanlines_width = 0.25
+shader_parameter/grille_opacity = 0.3
+shader_parameter/resolution = Vector2(640, 480)
+shader_parameter/pixelate = false
+shader_parameter/roll = true
+shader_parameter/roll_speed = 8.0
+shader_parameter/roll_size = 15.0
+shader_parameter/roll_variation = 1.8
+shader_parameter/distort_intensity = 0.05
+shader_parameter/noise_opacity = 0.4
+shader_parameter/noise_speed = 5.0
+shader_parameter/static_noise_intensity = 0.06
+shader_parameter/aberration = 0.01
+shader_parameter/brightness = 1.4
+shader_parameter/discolor = true
+shader_parameter/warp_amount = 0.0
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 0.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2dgw5"]
+shader = ExtResource("7_1mb4a")
+shader_parameter/BlockSize = Vector2(100, 100)
+shader_parameter/WIDTH = 3.0
+
+[sub_resource type="Curve" id="Curve_7sw7h"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_2st4p"]
+curve = SubResource("Curve_7sw7h")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mipxb"]
+shader = ExtResource("5_abpmc")
+shader_parameter/DEBUG_MODE = false
+shader_parameter/curve_texture = SubResource("CurveTexture_2st4p")
+
+[node name="Map_Editor" type="Node2D"]
+script = ExtResource("1_681ir")
+
+[node name="Icon" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(64, 64)
+texture = ExtResource("3_v3ltf")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 463.0
+offset_bottom = 463.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Node2D" type="Node2D" parent="CanvasLayer/Control"]
+rotation = -0.261799
+skew = 0.263545
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer/Control/Node2D"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/Control/Node2D/SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+render_target_update_mode = 4
+
+[node name="TerrainEditor_ui" parent="CanvasLayer/Control/Node2D/SubViewportContainer/SubViewport" instance=ExtResource("3_swh0k")]
+offset_right = -512.0
+offset_bottom = -512.0
+
+[node name="Shader" type="ColorRect" parent="CanvasLayer/Control/Node2D"]
+material = SubResource("ShaderMaterial_a4nsu")
+offset_left = 66.0
+offset_top = 12.0
+offset_right = 328.0
+offset_bottom = 179.0
+mouse_filter = 2
+
+[node name="BlockGrid" type="ColorRect" parent="."]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_2dgw5")
+offset_right = 2304.0
+offset_bottom = 1296.0
+mouse_filter = 2
+
+[node name="CanvasGroup" type="CanvasGroup" parent="."]
+material = SubResource("ShaderMaterial_mipxb")
+
+[node name="ChunkLoad" type="Node2D" parent="CanvasGroup"]
+script = ExtResource("1_5gdwe")
+
+[node name="ObjectNode" type="Node2D" parent="."]
+
+[node name="Camera" type="Camera2D" parent="."]
+unique_name_in_owner = true
+zoom = Vector2(0.5, 0.5)

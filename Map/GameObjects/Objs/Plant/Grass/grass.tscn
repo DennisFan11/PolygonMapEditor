@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://dg6wd8j0b0wih"]
+
+[ext_resource type="Shader" path="res://Map/GameObjects/Objs/Plant/Grass/grass.gdshader" id="1_aonwb"]
+[ext_resource type="Script" path="res://Map/GameObjects/Objs/Plant/Grass/grass.gd" id="1_xnvji"]
+[ext_resource type="Texture2D" uid="uid://drxl88hihx3xg" path="res://Map/GameObjects/Objs/Plant/Grass/Grass.png" id="2_bqcev"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iormq"]
+resource_local_to_scene = true
+shader = ExtResource("1_aonwb")
+shader_parameter/rand_time = 0.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mmo32"]
+radius = 5.0
+
+[node name="Grass" type="Node2D"]
+script = ExtResource("1_xnvji")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_iormq")
+scale = Vector2(2, 2)
+texture = ExtResource("2_bqcev")
+polygon = PackedVector2Array(-6, 0, 6, 0, 5.47795, -1.8562, 5.02058, -3.48239, 3.98383, -7.16861, 2.86021, -11.1637, 1.8271, -14.837, 0.910349, -18.0965, 0.0946064, -20.997, -0.74255, -23.9735, -1.5692, -26.9127, -2.22979, -29.2615, -3, -32, -3.26349, -29.1895, -3.49111, -26.7615, -3.75821, -23.9125, -4.03438, -20.9666, -4.30565, -18.073, -4.62044, -14.7154, -4.96173, -11.0749, -5.30921, -7.36845, -5.66505, -3.57283, -5.83951, -1.7119)
+uv = PackedVector2Array(0.535614, 32.0124, 15.7291, 31.8869, 15.2085, 30.3865, 14.7126, 28.7525, 14.0934, 26.4089, 13.508, 23.6593, 12.982, 21.3974, 12.1035, 17.8405, 11.2969, 14.5091, 10.3268, 10.3611, 9.78732, 7.53181, 8.92852, 4.0425, 8.06797, 0.479607, 7.14008, 4.0425, 6.2869, 7.49408, 5.69564, 10.5007, 5.06421, 13.4416, 4.14062, 17.8056, 3.36373, 21.0386, 2.87684, 23.0273, 2.36054, 25.4601, 1.65789, 27.739, 1.09681, 29.8606)
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="GroundHolder" type="Area2D" parent="." groups=["Grass", "Plant"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GroundHolder"]
+shape = SubResource("CircleShape2D_mmo32")
+
+[connection signal="body_exited" from="GroundHolder" to="." method="_on_ground_holder_body_exited"]

@@ -1,0 +1,119 @@
+[gd_scene load_steps=11 format=3 uid="uid://b5chm087hiyp5"]
+
+[ext_resource type="Texture2D" uid="uid://bh1v2iso5bbea" path="res://Map/MapData/Map_Gen/mapgen_texture.png" id="1_b36r0"]
+[ext_resource type="Script" path="res://Map/MapData/Map_Gen/map_gen.gd" id="1_srxk0"]
+[ext_resource type="Shader" uid="uid://cb11cddf6gemc" path="res://Map/MapData/Map_Gen/Shaders/Dirt.tres" id="3_jlwgw"]
+[ext_resource type="Shader" uid="uid://d1jlj7cu7io4g" path="res://Map/MapData/Map_Gen/Shaders/Stone.tres" id="5_px2q8"]
+[ext_resource type="Shader" uid="uid://csm1edup44vt5" path="res://Map/MapData/Map_Gen/Coal.tres" id="6_pjslp"]
+[ext_resource type="Shader" uid="uid://c47qnktsy5g2i" path="res://Map/MapData/Map_Gen/Iorn.tres" id="7_ugucj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_df8sv"]
+shader = ExtResource("3_jlwgw")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f8lve"]
+shader = ExtResource("5_px2q8")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lc7y0"]
+shader = ExtResource("6_pjslp")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i1aks"]
+shader = ExtResource("7_ugucj")
+
+[node name="Map_gen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_srxk0")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+layout_mode = 0
+offset_left = 320.0
+offset_top = 64.0
+offset_right = 832.0
+offset_bottom = 576.0
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="Viewport" type="SubViewport" parent="SubViewportContainer"]
+unique_name_in_owner = true
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="Dirt" type="Sprite2D" parent="SubViewportContainer/Viewport"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_df8sv")
+position = Vector2(256, 256)
+texture = ExtResource("1_b36r0")
+
+[node name="Stone" type="Sprite2D" parent="SubViewportContainer/Viewport"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_f8lve")
+position = Vector2(256, 256)
+texture = ExtResource("1_b36r0")
+
+[node name="Coal" type="Sprite2D" parent="SubViewportContainer/Viewport"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_lc7y0")
+position = Vector2(256, 256)
+texture = ExtResource("1_b36r0")
+
+[node name="Iorn" type="Sprite2D" parent="SubViewportContainer/Viewport"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_i1aks")
+position = Vector2(256, 256)
+texture = ExtResource("1_b36r0")
+
+[node name="Camera" type="Camera2D" parent="SubViewportContainer/Viewport"]
+unique_name_in_owner = true
+offset = Vector2(256, 256)
+
+[node name="SaveButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 192.0
+offset_right = 256.0
+offset_bottom = 256.0
+text = "Save"
+
+[node name="LineEdit" type="LineEdit" parent="."]
+layout_mode = 2
+offset_left = 64.0
+offset_top = 144.0
+offset_right = 256.0
+offset_bottom = 175.0
+placeholder_text = "map name"
+
+[node name="Output" type="RichTextLabel" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 64.0
+offset_top = 264.0
+offset_right = 320.0
+offset_bottom = 448.0
+bbcode_enabled = true
+text = "Input the map name
+and click the save button"
+
+[node name="MapInfo" type="RichTextLabel" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 864.0
+offset_top = 64.0
+offset_right = 1088.0
+offset_bottom = 576.0
+bbcode_enabled = true
+text = "map:info"
+
+[connection signal="pressed" from="SaveButton" to="." method="_on_save"]

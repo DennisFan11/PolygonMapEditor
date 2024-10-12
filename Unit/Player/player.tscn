@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://6ddq1dj2l7ff"]
+
+[ext_resource type="Script" path="res://Unit/Player/Player.gd" id="1_burwy"]
+[ext_resource type="Script" path="res://Unit/Player/player_body.gd" id="2_mttn3"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_04qvo"]
+radius = 29.0
+height = 62.0
+
+[node name="Player" type="Node2D"]
+script = ExtResource("1_burwy")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+script = ExtResource("2_mttn3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("CapsuleShape2D_04qvo")

@@ -1,0 +1,102 @@
+[gd_scene load_steps=13 format=3 uid="uid://bf6vpy7qaysi6"]
+
+[ext_resource type="Texture2D" uid="uid://tso2fflc8yoa" path="res://Map/Map_Editor/UI/TerrainEditor_Panel.png" id="1_x1n7n"]
+[ext_resource type="Script" path="res://Map/Map_Editor/UI/terrain_editor_ui.gd" id="1_xowfd"]
+[ext_resource type="Texture2D" uid="uid://c7lhcvqucjq31" path="res://Map/Map_Editor/UI/cicle_ui.png" id="2_f4bvc"]
+[ext_resource type="Texture2D" uid="uid://dbpwlx6t2bwsv" path="res://Map/Map_Editor/UI/square_ui.png" id="3_majlk"]
+[ext_resource type="Texture2D" uid="uid://c0o1r1cfy3pb3" path="res://Map/Map_Editor/UI/Dirt.png" id="4_mn2d6"]
+[ext_resource type="Texture2D" uid="uid://cklil3esmo2b1" path="res://Map/Map_Editor/UI/Stone.png" id="5_a1rg0"]
+[ext_resource type="Texture2D" uid="uid://cjtt52gse7y1m" path="res://Map/Map_Editor/UI/Terrain_debug_icon.png" id="5_rmpe0"]
+[ext_resource type="Texture2D" uid="uid://drxl88hihx3xg" path="res://Map/GameObjects/Objs/Plant/Grass/Grass.png" id="5_rvq51"]
+[ext_resource type="Texture2D" uid="uid://s1abnp3xagu0" path="res://Map/Map_Editor/UI/Iorn.png" id="6_xeyus"]
+[ext_resource type="Texture2D" uid="uid://cndx0270481ik" path="res://Map/Map_Editor/UI/Coal.png" id="7_2oo7c"]
+[ext_resource type="Texture2D" uid="uid://dw1amjnylkpk3" path="res://Map/Map_Editor/UI/Chunk_Size_add.png" id="10_vuesm"]
+[ext_resource type="Texture2D" uid="uid://cvesi0cm30nvu" path="res://Map/Map_Editor/UI/Chunk_Size_min.png" id="11_wxp7y"]
+
+[node name="TerrainEditor_ui" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -809.0
+offset_bottom = -390.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xowfd")
+
+[node name="TerrainEditorPanel" type="Sprite2D" parent="."]
+position = Vector2(171, 128)
+scale = Vector2(2, 2)
+texture = ExtResource("1_x1n7n")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 17.0
+offset_right = 321.0
+offset_bottom = 60.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="Circle" type="Button" parent="CenterContainer/HBoxContainer"]
+layout_mode = 2
+icon = ExtResource("2_f4bvc")
+
+[node name="Square" type="Button" parent="CenterContainer/HBoxContainer"]
+layout_mode = 2
+icon = ExtResource("3_majlk")
+
+[node name="Grass" type="Button" parent="CenterContainer/HBoxContainer"]
+layout_mode = 2
+icon = ExtResource("5_rvq51")
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 0
+offset_left = 67.0
+offset_top = 59.0
+offset_right = 326.0
+offset_bottom = 178.0
+current_tab = 0
+
+[node name="ItemList" type="ItemList" parent="TabContainer"]
+layout_mode = 2
+item_count = 4
+max_columns = 6
+item_0/icon = ExtResource("4_mn2d6")
+item_1/icon = ExtResource("5_a1rg0")
+item_2/icon = ExtResource("6_xeyus")
+item_3/icon = ExtResource("7_2oo7c")
+metadata/_tab_index = 0
+
+[node name="Visual" type="ItemList" parent="TabContainer"]
+visible = false
+layout_mode = 2
+item_count = 3
+max_columns = 5
+item_0/icon = ExtResource("5_rmpe0")
+item_1/icon = ExtResource("10_vuesm")
+item_2/icon = ExtResource("11_wxp7y")
+metadata/_tab_index = 1
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 85.0
+offset_top = 214.0
+offset_right = 139.0
+offset_bottom = 247.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel"]
+layout_mode = 0
+offset_right = 106.0
+offset_bottom = 64.0
+scale = Vector2(0.5, 0.5)
+bbcode_enabled = true
+text = "
+"
+
+[connection signal="pressed" from="CenterContainer/HBoxContainer/Circle" to="." method="_on_circle_pressed"]
+[connection signal="pressed" from="CenterContainer/HBoxContainer/Square" to="." method="_on_square_pressed"]
+[connection signal="pressed" from="CenterContainer/HBoxContainer/Grass" to="." method="_on_grass_pressed"]
+[connection signal="item_clicked" from="TabContainer/ItemList" to="." method="_on_item_list_item_clicked"]
+[connection signal="item_clicked" from="TabContainer/Visual" to="." method="_on_visual_item_clicked"]
